@@ -7,38 +7,21 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class VisitClientModel {
+public class VisitDishModel {
     private Connection connection;
 
-    private ObservableList<Client> visits_clients;
+    private ObservableList<Dish> visits_dishes;
 
 
-    public VisitClientModel() throws Exception {
+    public VisitDishModel() throws Exception {
         this.connection = ConnectionTry.getConnection();
 
-        visits_clients = FXCollections.observableArrayList();
+        visits_dishes = FXCollections.observableArrayList();
 
         Statement statement = connection.createStatement();
-        String query = "SELECT visitClients.id_visit AS visit_id, clients.id AS id, clients.last_name, clients.first_name, clients.second_name\n" +
-                "FROM clients JOIN visitClients ON clients.id = visitClients.id_client;";
-        ResultSet resultSet = statement.executeQuery(query);
-
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            int visit_id = resultSet.getInt("visit_id");
-            String last_name = resultSet.getString("last_name");
-            String first_name = resultSet.getString("first_name");
-            String second_name = resultSet.getString("second_name");
-            Client client = new Client(id, last_name, first_name, second_name, visit_id);
-            visits_clients.add(client);
-        }
-
-        statement.close();
-/*
-        statement = connection.createStatement();
-        query = "SELECT visitDishes.id_visit AS visit_id, dishes.id AS id, dishes.name, amount\n" +
+        String query = "SELECT visitDishes.id_visit AS visit_id, dishes.id AS id, dishes.name, amount\n" +
                 "FROM dishes JOIN visitDishes ON dishes.id = visitDishes.id_visit;";
-        resultSet = statement.executeQuery(query);
+        ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
@@ -46,22 +29,21 @@ public class VisitClientModel {
             int amount = resultSet.getInt("amount");
             String name = resultSet.getString("name");
             Dish dish = new Dish(id, name, visit_id, amount);
-            dishes.add(dish);
+            visits_dishes.add(dish);
         }
 
         statement.close();
 
- */
     }
 
-    private void updateVisitsClientsArray(int id_visit, int action) throws SQLException {
+    private void updateVisitsDishesArray(int id_visit, int action) throws SQLException {
         String query = " ";
         PreparedStatement statement;
         ResultSet resultSet;
         switch (action) {
             case 1:
-                query = "SELECT visitClients.id_visit AS visit_id, clients.id AS id, clients.last_name, clients.first_name, clients.second_name\n" +
-                        "FROM clients JOIN visitClients ON clients.id = visitClients.id_client WHERE visitClients.id_visit = ?";
+                query = "SELECT visitDishes.id_visit AS visit_id, dishes.id AS id, dishes.name, amount\n" +
+                        "FROM dishes JOIN visitDishes ON dishes.id = visitDishes.id_visit WHERE visitDishes.id_visit = ?";
                 statement = connection.prepareStatement(query);
                 statement.setInt(1, id_visit);
 
@@ -70,18 +52,17 @@ public class VisitClientModel {
                 if (resultSet.next()) {
                     int id = resultSet.getInt("id");
                     int visit_id = resultSet.getInt("visit_id");
-                    String last_name = resultSet.getString("last_name");
-                    String first_name = resultSet.getString("first_name");
-                    String second_name = resultSet.getString("second_name");
-                    Client client = new Client(id, last_name, first_name, second_name, visit_id);
-                    visits_clients.add(client);
+                    int amount = resultSet.getInt("amount");
+                    String name = resultSet.getString("name");
+                    Dish dish = new Dish(id, name, visit_id, amount);
+                    visits_dishes.add(dish);
                 }
 
                 statement.close();
                 break;
             case 2:
-                query = "SELECT visitClients.id_visit AS visit_id, clients.id AS id, clients.last_name, clients.first_name, clients.second_name\n" +
-                        "FROM clients JOIN visitClients ON clients.id = visitClients.id_client WHERE visitClients.id_visit = ?";
+                query = "SELECT visitDishes.id_visit AS visit_id, dishes.id AS id, dishes.name, amount\n" +
+                        "FROM dishes JOIN visitDishes ON dishes.id = visitDishes.id_visit WHERE visitDishes.id_visit = ?";
                 statement = connection.prepareStatement(query);
                 statement.setInt(1, id_visit);
 
@@ -90,12 +71,11 @@ public class VisitClientModel {
                 if (resultSet.next()) {
                     int id = resultSet.getInt("id");
                     int visit_id = resultSet.getInt("visit_id");
-                    String last_name = resultSet.getString("last_name");
-                    String first_name = resultSet.getString("first_name");
-                    String second_name = resultSet.getString("second_name");
-                    for (int i = 0; i < visits_clients.size(); i++) {
-                        if (visits_clients.get(i).getId() == id && visits_clients.get(i).getId_visit() == visit_id) {
-                            visits_clients.set(i, new Client(id, last_name, first_name, second_name, visit_id));
+                    int amount = resultSet.getInt("amount");
+                    String name = resultSet.getString("name");
+                    for (int i = 0; i < visits_dishes.size(); i++) {
+                        if (visits_dishes.get(i).getId() == id && visits_dishes.get(i).getId_visit() == visit_id) {
+                            visits_dishes.set(i, new Dish(id, name, visit_id, amount));
                         }
                     }
                 }
@@ -103,10 +83,10 @@ public class VisitClientModel {
                 statement.close();
                 break;
             case 3:
-                for (int i = 0; i < visits_clients.size(); i++) {
-                    if (visits_clients.get(i).getId_visit() == id_visit) {
-                        Client client = visits_clients.get(i);
-                        visits_clients.remove(client);
+                for (int i = 0; i < visits_dishes.size(); i++) {
+                    if (visits_dishes.get(i).getId_visit() == id_visit) {
+                        Dish dish = visits_dishes.get(i);
+                        visits_dishes.remove(dish);
                         break;
                     }
                 }
@@ -115,25 +95,12 @@ public class VisitClientModel {
 
     }
 
-    /*
-    public Client getVisitClient(int id_visit) throws SQLException {
-        Client client = new Client();
-        for (Client one_visit: visits_clients) {
-            if (one_visit.getId() == id_visit) {
-                client = one_visit;
-                break;
-            }
-        }
-        return client;
+
+    public ObservableList<Dish> getVisitDishes() {
+        return visits_dishes;
     }
 
-     */
-
-    public ObservableList<Client> getVisitClients() {
-        return visits_clients;
-    }
-
-    public void updateVisitClient(String visit_id, String client_id) throws SQLException {
+    public void updateVisitDish(String visit_id, String dish_id, String amount) throws SQLException {
         boolean isNumber = false;
         boolean isNumber2 = false;
         if (!visit_id.isBlank()) {
@@ -153,16 +120,16 @@ public class VisitClientModel {
                 statement.close();
             }
         }
-        if (!client_id.isBlank()) {
-            if (checkIfInt(client_id)) {
-                String sql = "SELECT id FROM clients WHERE id = ?";
+        if (!dish_id.isBlank()) {
+            if (checkIfInt(dish_id)) {
+                String sql = "SELECT id FROM dishes WHERE id = ?";
                 PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setInt(1, Integer.parseInt(client_id));
+                statement.setInt(1, Integer.parseInt(dish_id));
 
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     int id = resultSet.getInt("id");
-                    if (id == Integer.parseInt(client_id)) {
+                    if (id == Integer.parseInt(dish_id)) {
                         isNumber2 = true;
                         break;
                     }
@@ -171,40 +138,34 @@ public class VisitClientModel {
             }
         }
         if (isNumber && isNumber2) {
-            String sql = "SELECT id_visit, id_client FROM visitClients";
-            sql += " WHERE id_visit = ? AND id_client = ?";
+            String sql = "SELECT id_visit, id_dish FROM visitDishes";
+            sql += " WHERE id_visit = ? AND id_dish = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(visit_id));
-            statement.setInt(2, Integer.parseInt(client_id));
+            statement.setInt(2, Integer.parseInt(dish_id));
 
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
                 statement.close();
 
-                sql = "UPDATE visitClients SET id_visit = ?, id_client = ?";
+                sql = "UPDATE visitDishes SET id_visit = ?, id_dish = ?, amount = ?";
                 sql += " WHERE id_visit = ?";
 
                 statement = connection.prepareStatement(sql);
 
-                //if (isNumber) {
                 statement.setInt(1, Integer.parseInt(visit_id));
-                //}
-                //else {
-                //     statement.setInt(1, 1);
-                //}
-                //if (isNumber2) {
-                statement.setInt(2, Integer.parseInt(client_id));
-                //}
-                //else {
-                //    statement.setInt(2, 1);
-                //}
+                statement.setInt(2, Integer.parseInt(dish_id));
+                if (checkIfInt(amount))
+                    statement.setInt(3, Integer.parseInt(amount));
+                else
+                    statement.setInt(3, 0);
 
-                statement.setInt(3, Integer.parseInt(visit_id));
+                statement.setInt(4, Integer.parseInt(visit_id));
 
                 statement.executeUpdate();
                 statement.close();
-                this.updateVisitsClientsArray(Integer.parseInt(visit_id), 2);
+                this.updateVisitsDishesArray(Integer.parseInt(visit_id), 2);
             }
 
         }
@@ -221,23 +182,23 @@ public class VisitClientModel {
         return true;
     }
 
-    public void deleteVisitClient(String visit_id, String client_id) throws SQLException {
+    public void deleteVisitDish(String visit_id, String dish_id) throws SQLException {
         //boolean isNumber = false;
-        if (!visit_id.isBlank() && !client_id.isBlank()) {
-            String sql = "DELETE FROM visitClients where id_visit = ? AND id_client = ?";
+        if (!visit_id.isBlank() && !dish_id.isBlank()) {
+            String sql = "DELETE FROM visitDishes where id_visit = ? AND id_dish = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setInt(1, Integer.parseInt(visit_id));
-            statement.setInt(2, Integer.parseInt(client_id));
+            statement.setInt(2, Integer.parseInt(dish_id));
 
             statement.executeUpdate();
             statement.close();
-            this.updateVisitsClientsArray(Integer.parseInt(visit_id), 3);
+            this.updateVisitsDishesArray(Integer.parseInt(visit_id), 3);
         }
 
     }
 
-    public void insertVisitClient(String visit_id, String client_id) throws SQLException {
+    public void insertVisitDish(String visit_id, String dish_id, String amount) throws SQLException {
         boolean isNumber = false;
         boolean isNumber2 = false;
         if (!visit_id.isBlank()) {
@@ -257,16 +218,16 @@ public class VisitClientModel {
                 statement.close();
             }
         }
-        if (!client_id.isBlank()) {
-            if (checkIfInt(client_id)) {
-                String sql = "SELECT id FROM clients WHERE id = ?";
+        if (!dish_id.isBlank()) {
+            if (checkIfInt(dish_id)) {
+                String sql = "SELECT id FROM dishes WHERE id = ?";
                 PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setInt(1, Integer.parseInt(client_id));
+                statement.setInt(1, Integer.parseInt(dish_id));
 
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     int id = resultSet.getInt("id");
-                    if (id == Integer.parseInt(client_id)) {
+                    if (id == Integer.parseInt(dish_id)) {
                         isNumber2 = true;
                         break;
                     }
@@ -275,25 +236,29 @@ public class VisitClientModel {
             }
         }
         if (isNumber && isNumber2) {
-            String sql = "SELECT id_visit, id_client FROM visitClients";
-            sql += " WHERE id_visit = ? AND id_client = ?";
+            String sql = "SELECT id_visit, id_dish FROM visitDishes";
+            sql += " WHERE id_visit = ? AND id_dish = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(visit_id));
-            statement.setInt(2, Integer.parseInt(client_id));
+            statement.setInt(2, Integer.parseInt(dish_id));
 
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
-                sql = "INSERT INTO visitClients (id_visit, id_client) VALUES (?, ?)";
+                sql = "INSERT INTO visitDishes (id_visit, id_dish, amount) VALUES (?, ?, ?)";
 
                 statement = connection.prepareStatement(sql);
 
                 statement.setInt(1, Integer.parseInt(visit_id));
-                statement.setInt(2, Integer.parseInt(client_id));
+                statement.setInt(2, Integer.parseInt(dish_id));
+                if (checkIfInt(amount))
+                    statement.setInt(3, Integer.parseInt(amount));
+                else
+                    statement.setInt(3, 0);
 
                 statement.executeUpdate();
                 statement.close();
-                this.updateVisitsClientsArray(Integer.parseInt(visit_id), 1);
+                this.updateVisitsDishesArray(Integer.parseInt(visit_id), 1);
             }
         }
     }
