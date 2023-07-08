@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="668.0" prefWidth="896.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.course_project.VisitsController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="859.0">
+        <children>
+            <Button fx:id="backBtn" layoutX="26.0" layoutY="538.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="50.0" prefWidth="90.0" text="Назад" />
+            <Button fx:id="addNewData" layoutX="208.0" layoutY="551.0" mnemonicParsing="false" onAction="#addNewVisitBtn" text="Добавить запись" />
+            <Button fx:id="updateVisit" layoutX="358.0" layoutY="551.0" mnemonicParsing="false" onAction="#updateVisitBtn" text="Обновить запись" />
+
+            <TableView fx:id="visitsTable" layoutX="16.0" layoutY="14.0" prefHeight="276.0" prefWidth="826.0">
+
+                <columns>
+                    <TableColumn fx:id="idVisit" prefWidth="55.999969482421875" text="id" />
+                    <TableColumn fx:id="visitTimeStart" minWidth="0.0" prefWidth="146.4000015258789" text="Начало визита" />
+                    <TableColumn fx:id="visitTimeEnd" minWidth="0.0" prefWidth="167.199951171875" text="Конец визита" />
+                    <TableColumn fx:id="visitTableTable" minWidth="0.0" prefWidth="141.59988403320312" text="Номер стола" />
+                    <TableColumn fx:id="visitWaiter" minWidth="0.0" prefWidth="308.00006103515625" text="Официант" />
+                </columns>
+            </TableView>
+            <Button fx:id="addVisitDishes" layoutX="671.0" layoutY="310.0" mnemonicParsing="false" onAction="#addDishesInVisitView" prefHeight="51.0" prefWidth="170.0" text="Блюда за визит" />
+            <Button fx:id="addVisitClients" layoutX="478.0" layoutY="309.0" mnemonicParsing="false" onAction="#addClientsInVisitView" prefHeight="53.0" prefWidth="170.0" text="Посетители за визит" />
+            <Button fx:id="deleteVisit" layoutX="508.0" layoutY="551.0" mnemonicParsing="false" onAction="#deleteVisitBtn" text="Удалить запись" />
+            <TextField fx:id="enterWaiter" layoutX="208.0" layoutY="498.0" />
+            <TextField fx:id="enterTableNumber" layoutX="208.0" layoutY="437.0" />
+            <Label layoutX="215.0" layoutY="412.0" text="Номер стола (код)" />
+            <Label layoutX="208.0" layoutY="475.0" text="Код официанта" />
+            <Button fx:id="endVisit" onAction="#endVisitAction" layoutX="242.0" layoutY="322.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Завершить визит" />
+            <ChoiceBox fx:id="enterTableNumber1" layoutX="392.0" layoutY="437.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="enterWaiter1" layoutX="394.0" layoutY="498.0" prefWidth="150.0" />
+        </children>
+        </AnchorPane>
+    </children>
+</VBox>

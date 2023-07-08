@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<VBox alignment="CENTER" prefHeight="406.0" prefWidth="905.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.course_project.StaffController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="806.0">
+            <children>
+                <Button fx:id="backBtn" layoutX="24.0" layoutY="218.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="50.0" prefWidth="90.0" text="Назад" />
+                <Button fx:id="addNewData" layoutX="145.0" layoutY="332.0" mnemonicParsing="false" onAction="#addNewStaffBtn" text="Добавить запись" />
+                <Button fx:id="updateStaff" layoutX="295.0" layoutY="332.0" mnemonicParsing="false" onAction="#updateStaffBtn" text="Обновить запись" />
+                <TableView fx:id="staffTable" layoutX="15.0" layoutY="14.0" prefHeight="176.0" prefWidth="776.0">
+                    <columns>
+                        <TableColumn fx:id="idStaff" prefWidth="28.79998779296875" text="id" />
+                        <TableColumn fx:id="first_name" prefWidth="136.80001831054688" text="Фамилия" />
+                        <TableColumn fx:id="last_name" prefWidth="136.0000762939453" text="Имя" />
+                        <TableColumn fx:id="second_name" prefWidth="130.39996337890625" text="Отчество" />
+                        <TableColumn fx:id="phone_number" minWidth="0.0" prefWidth="160.0" text="Номер телефона" />
+                        <TableColumn fx:id="address" prefWidth="179.20001220703125" text="Адрес" />
+                    </columns>
+                </TableView>
+                <Button fx:id="deleteStaff" layoutX="445.0" layoutY="332.0" mnemonicParsing="false" onAction="#deleteStaffBtn" text="Удалить запись" />
+                <TextField fx:id="enterLastName" layoutX="145.0" layoutY="279.0" />
+                <TextField fx:id="enterFirstName" layoutX="145.0" layoutY="218.0" />
+                <TextField fx:id="enterSecondName" layoutX="331.0" layoutY="218.0" />
+                <TextField fx:id="enterPersonPhone" layoutX="328.0" layoutY="279.0" />
+                <TextField fx:id="enterPersonAddress" layoutX="511.0" layoutY="251.0" />
+                <Label layoutX="152.0" layoutY="193.0" text="Фамилия" />
+                <Label layoutX="145.0" layoutY="256.0" text="Имя" />
+                <Label layoutX="331.0" layoutY="193.0" text="Отчество" />
+                <Label layoutX="332.0" layoutY="255.0" text="Номер телефона" />
+                <Label layoutX="511.0" layoutY="222.0" text="Адрес" />
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="417.0" prefWidth="840.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.course_project.VisitsClientController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="806.0">
+         <children>
+            <Button fx:id="backBtn" layoutX="29.0" layoutY="257.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="50.0" prefWidth="90.0" text="Назад" />
+            <Button fx:id="addNewData" layoutX="145.0" layoutY="332.0" mnemonicParsing="false" onAction="#addNewVisitClientBtn" text="Добавить запись" />
+            <Button fx:id="updateVisitClient" layoutX="295.0" layoutY="332.0" mnemonicParsing="false" onAction="#updateVisitClientBtn" text="Обновить запись" />
+            <TableView fx:id="visitsClientsTable" layoutX="15.0" layoutY="14.0" prefHeight="176.0" prefWidth="776.0">
+              <columns>
+                  <TableColumn fx:id="idVisit" prefWidth="123.99996185302734" text="id Визита" />
+                  <TableColumn fx:id="first_name" minWidth="0.0" prefWidth="152.0000457763672" text="Фамилия" />
+                  <TableColumn fx:id="last_name" minWidth="0.0" prefWidth="143.99993896484375" text="Имя" />
+                  <TableColumn fx:id="second_name" minWidth="0.0" prefWidth="224.0" text="Отчество" />
+              </columns>
+            </TableView>
+            <Button fx:id="deleteVisitClient" layoutX="445.0" layoutY="332.0" mnemonicParsing="false" onAction="#deleteVisitClientBtn" text="Удалить запись" />
+            <TextField fx:id="enterIdVisit" layoutX="152.0" layoutY="218.0" />
+            <TextField fx:id="enterIdClient" layoutX="152.0" layoutY="282.0" />
+            <Label layoutX="152.0" layoutY="193.0" text="Код визита" />
+            <Label layoutX="145.0" layoutY="256.0" text="Код клиента" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
