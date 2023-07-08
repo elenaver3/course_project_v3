@@ -28,6 +28,7 @@
                 <Button fx:id="deleteDish" layoutX="461.0" layoutY="324.0" mnemonicParsing="false" onAction="#deleteDishBtn" text="Удалить запись" />
                 <TextField fx:id="enterDishName" layoutX="167.0" layoutY="264.0" />
                 <Label layoutX="170.0" layoutY="235.0" text="Название блюда" />
+            <Button fx:id="addIngInDIsh" layoutX="561.0" layoutY="241.0" mnemonicParsing="false" onAction="#addIngInDishView" prefHeight="50.0" prefWidth="222.0" text="Добавить ингредиенты в блюдо" />
             </children>
         </AnchorPane>
     </children>

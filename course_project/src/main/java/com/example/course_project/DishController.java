@@ -32,6 +32,7 @@ public class DishController implements Initializable {
     public Button updateDish;
     public Button deleteDish;
     public TextField enterDishName;
+    public Button addIngInDIsh;
 
     //selected
     private int selectedDish;
@@ -150,4 +151,11 @@ public class DishController implements Initializable {
     }
 
 
+    public void addIngInDishView(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("ingredients-in-dish-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

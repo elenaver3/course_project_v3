@@ -8,11 +8,14 @@ public class Ingredient {
     private String measurementUnit;
     private int amount;
 
+    private int id_dish;
+
     public Ingredient() {
         id = -1;
         name = " ";
         measurementUnit = " ";
         amount = 0;
+        id_dish = -1;
     }
 
     public Ingredient(int id, String name, String measurementUnit, int amount) {
@@ -20,6 +23,15 @@ public class Ingredient {
         this.name = name;
         this.measurementUnit = measurementUnit;
         this.amount = amount;
+        this.id_dish = -1;
+    }
+
+    public Ingredient(int id, String name, int amount, int id_dish) {
+        this.id = id;
+        this.name = name;
+        this.measurementUnit = measurementUnit;
+        this.amount = amount;
+        this.id_dish = id_dish;
     }
 
     public int getId() {
@@ -52,5 +64,13 @@ public class Ingredient {
 
     public void setMeasurementUnit(String measurementUnit) {
         this.measurementUnit = measurementUnit;
+    }
+
+    public int getId_dish() {
+        return id_dish;
+    }
+
+    public void setId_dish(int id_dish) {
+        this.id_dish = id_dish;
     }
 }
